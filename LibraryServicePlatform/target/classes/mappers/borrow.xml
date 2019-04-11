@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 为这个mapper指定一个唯一的namespace，相当于唯一的标识符。一般情况下名称名可
+随意，但代理模式下，名称名必须为被代理接口的全限定名称。即namespace名称与UserDAO的全限定名对应-->
+<mapper namespace="com.lsp.dao.BorrowDAO">
+
+    <select id="queryIdentifier" parameterType="string" resultType="string">
+        select id from user where id=#{identifier}
+    </select>
+    <select id="findBookId" parameterType="string" resultType="string">
+        select bId from book where bId=#{bookId}
+    </select>
+    <select id="findStatus" parameterType="string" resultType="int">
+        select status from book where bId=#{bookId}
+    </select>
+    <update id="setBookStatus" parameterType="com.lsp.domain.vo.SetBookStatus">
+        update book set status=#{status} where bId=#{bId}
+    </update>
+
+    <!--查询借阅人上一次的借阅记录-->
+    <select id="queryLastRecord" parameterType="string" resultType="com.lsp.domain.LoadBook">
+        select * from borrow where identifier=#{identifier} order by borrowTime desc limit 1
+    </select>
+    <insert id="insertBorrow" parameterType="com.lsp.domain.LoadBook">
+        insert into borrow(identifier,bookId,borrowTime,term) value(#{identifier},#{bookId},#{borrowTime},#{term})
+    </insert>
+    <update id="updateBorrow" parameterType="com.lsp.domain.LoadBook">
+        update borrow set returnTime=#{returnTime} where identifier=#{identifier} and bookId=#{bookId}
+    </update>
+</mapper>

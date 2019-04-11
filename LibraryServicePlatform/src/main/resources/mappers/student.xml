@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 为这个mapper指定一个唯一的namespace，相当于唯一的标识符。一般情况下名称名可
+随意，但代理模式下，名称名必须为被代理接口的全限定名称。即namespace名称与UserDAO的全限定名对应-->
+<mapper namespace="com.lsp.dao.StudentDAO">
+
+    <!--属性解释：
+        id：该条insert语句的唯一标识符。一般情况下，id名称可随意，但在代理模式下，id名称必须要
+        与被代理接口的方法名一致。
+        parameterType：传入的参数类型。
+        resultType：执行SQL语句后返回的数据类型
+        #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
+    -->
+    <insert id="insertStudent" parameterType="com.lsp.domain.Student">
+        insert into student(stuId,stuName,passwords) value(#{stuId},#{stuName},#{passwords})
+    </insert>
+    <!--删-->
+    <delete id="deleteStudent" parameterType="string">
+        delete from student where stuId=#{stuId}
+    </delete>
+    <!--改-->
+    <update id="updateStudent" parameterType="com.lsp.domain.complex.Entity">
+        update student set stuId=#{object.stuId},stuName=#{object.stuName},passwords=#{object.passwords} where stuId=#{id}
+    </update>
+    <!--查-->
+    <select id="findStudentById" parameterType="string" resultType="com.lsp.domain.Student">
+        select * from student where stuId=#{stuId}
+    </select>
+    <select id="findStudentByName" parameterType="string" resultType="com.lsp.domain.Student">
+        select * from student where stuName=#{stuName}
+    </select>
+
+    <!--查询密码-->
+    <select id="findPasswords" parameterType="string" resultType="string">
+        select passwords from student where stuId=#{stuId}
+    </select>
+    <!--修改密码-->
+    <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
+        update student set passwords=#{passwords} where stuId=#{id}
+    </update>
+</mapper>

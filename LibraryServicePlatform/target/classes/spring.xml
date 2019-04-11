@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/cache"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+
+    <!--<context:annotation-config> 是用于激活那些已经在spring容器里注册过
+        的bean（无论是通过xml的方式还是通过package sanning的方式）上面的注解。如果bean没有被注册过而直接
+        使用<context:annotation-config>则无效。-->
+
+    <!--<context:component-scan>除了具有<context:annotation-config>的功能之外，<context:component-scan>还可以
+        在指定的package下扫描以及注册javabean。即<context:component-scan>有三种功能:扫描bean，注册bean以及
+            激活bean。&ndash;&gt;-->
+
+    <!--<context:annotation-config />和 <context:component-scan>同时存在的时候，前者会被忽略。-->
+
+    <!--所谓激活bean，就是用于处理bean之间的依赖。在本质上讲，激活bean就是向xml文件中注册相应的bean类，而这些
+    bean类在来处理这些注解-->
+
+    <!--<context:component-scan>中的base-package属性允许有多个值，多个值可以用逗号隔开。当然也可以分开单独写这些包名。-->
+    <!--<context:component-scan> 所产生的的处理那些注解的处理器工具，会处理所有绑定到容器上面的bean，不管是
+    通过xml手动注册的还是通过scanning扫描注册的。-->
+    <!--<context:component-scan base-package="com.concordance.domain,com.concordance.dao,com.concordance.service"/>-->
+
+    <!--配置SqlSessionFactory的数据源-->
+    <!--配置数据源连接池 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!--配置MySQL数据库连接表-->
+        <property name="url" value="jdbc:mysql://localhost:3306/lsp"/>
+        <property name="username" value="root"/>
+        <property name="password" value="mysql"/>
+        <!-- 数据库连接池 -->
+    </bean>
+
+    <!--&lt;!&ndash; 配置SqlSessionFactory,即将mybatis整合到Spring中&ndash;&gt;-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 指定数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 指定Mybatis配置文件的路径，即加载mybatis.xml配置文件-->
+        <property name="configLocation" value="classpath:mybatis.xml"></property>
+    </bean>
+
+    <context:component-scan base-package="com.lsp.domain"/>
+    <context:component-scan base-package="com.lsp.dao"/>
+    <context:component-scan base-package="com.lsp.service"/>
+    <!--&lt;!&ndash; 事物的配置 &ndash;&gt;-->
+    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+    <!--&lt;!&ndash; 数据源 &ndash;&gt;-->
+    <!--<property name="dataSource" ref="dataSource"></property>-->
+    <!--</bean>-->
+
+</beans>

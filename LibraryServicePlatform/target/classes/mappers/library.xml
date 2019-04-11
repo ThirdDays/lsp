@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，相当于唯一的标识符。一般情况下名称名可
+随意，但代理模式下，名称名必须为被代理接口的全限定名称。即namespace名称与UserDAO的全限定名对应-->
+<mapper namespace="com.lsp.dao.CheckUserDAO">
+    <!--属性解释：
+        id：该条insert语句的唯一标识符。一般情况下，id名称可随意，但在代理模式下，id名称必须要
+        与被代理接口的方法名一致。
+        parameterType：传入的参数类型。
+        resultType：执行SQL语句后返回的数据类型
+        #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
+    -->
+    <select id="queryUserName" parameterType="string" resultType="string">
+        select name from user where id=#{id}
+    </select>
+    <select id="queryLastEntryTime" parameterType="string" resultType="java.sql.Timestamp">
+        select entryTime from lib where id=#{id} order by entryTime desc limit 1
+    </select>
+    <insert id="insertEntryTime" parameterType="com.lsp.domain.Lib">
+        insert into lib(id,name,entryTime) value(#{id},#{name},#{entryTime})
+    </insert>
+</mapper>

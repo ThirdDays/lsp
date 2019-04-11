@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置自动扫描包 -->
+    <!-- 启用注解扫描，并定义组件查找规则 ，mvc层只负责扫描@Controller、@ControllerAdvice -->
+    <!-- base-package 如果多个，用“,”分隔 -->
+    <context:component-scan base-package="com.lsp.controller"
+                            use-default-filters="false">
+        <!-- 扫描@Controller -->
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+        <!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常 -->
+        <!--<context:include-filter type="annotation"-->
+        <!--expression="org.springframework.web.bind.annotation.ControllerAdvice" />-->
+    </context:component-scan>
+
+    <!--<mvc:annotation-driven /> 是一种简写形式，完全可以手动配置替代这种简写形式，简写形式可以让初学都快速应用默
+    认配置方案。<mvc:annotation-driven /> 会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter
+    两个bean,是spring MVC为@Controllers分发请求所必须的。并提供了：数据绑定支持，@NumberFormatannotation支持，
+    @DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）。-->
+    <mvc:annotation-driven />
+    <!--<context:annotation-config/>-->
+
+    <!-- 配置视图解析器，id属性可以不用配置 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--配置文件资源名的前缀-->
+        <property name="prefix" value="/"></property>
+        <!--配置文件资源名的后缀-->
+        <property name="suffix" value=".jsp"></property>
+        <!--当控制器中传来一个简单文件名字符串时org.springframework.web.servlet.view.InternalResourceViewResolver会
+        自动地将prefix对应的值加在文件名前面，同理也会将suffix的值加在文件名的后面。这样方便开发-->
+    </bean>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/adminLogin.do"/>
+            <bean class="com.lsp.intercepter.TestIntercepter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
