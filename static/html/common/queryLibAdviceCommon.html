@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	
+	<style type="text/css">
+		#newWin{
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<header id="top">
+		<!-- 标题展示 -->
+		<div id="title">
+			<span>师生使用平台</span>
+		</div>
+		<!-- 用户名加签到展示 -->
+		<div id="user">
+				<span>用户名：</span>
+				<span></span>
+				<span><a>签到</a></span>
+		</div>
+	
+	</header>
+
+	<div class="middle clear_float">
+		<aside class="float_to_left">
+
+			<div id="label">
+				<label>查看图书馆公告</label>
+			</div>
+				<ul class="nav nav-tabs nav-stacked">
+					<li><a href="../common/queryLibAdvice.html" target="new">查看静态公告</a></li>
+					<li><a href="../common/queryLibAdvice.html" target="new">查看动态公告</a></li>
+					<li><a href="">退出</a></li>
+				</ul>
+		</aside>
+		<article class="float_to_right">
+			<div id="content">
+				<iframe id="newWin" src="../common/queryLibAdvice.html" frameborder="0" name="new"></iframe>
+			</div>
+		</article>
+	</div>
+	
+	<footer class="clear_float">
+	</footer>
+</body>
+</html>
