@@ -4,26 +4,17 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
-	 <link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
 	<style type="text/css">
-		#query{
-			width: 40%;
-			margin: 20px auto;
-		}
-		#display{
-			width: 100%;
-		}
-		#newWin{
-			width: 100%;
-		}
+		
 	</style>
 </head>
 <body>
 	<header id="top">
 		<!-- 标题展示 -->
 		<div id="title">
-			<span>师生使用平台</span>
+			<span>图书馆后台管理平台</span>
 		</div>
 		<!-- 用户名加签到展示 -->
 		<div id="user">
@@ -38,18 +29,21 @@
 		<aside class="float_to_left">
 
 			<div id="label">
-				<label>书籍资料查询</label>
+				<label>图书馆公告管理</label>
 			</div>
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="../common/queryBook.html" target="new">查询书籍</a></li>
-					<li><a href="../common/queryBooksByhot.html" target="new">查看热门书籍</a></li>
+					<li><a href="addLibAdvice.html" target="new">添加图书馆公告</a></li>
+					<!-- 没有删除图书馆公告的功能 -->
+					<!-- <li><a href="deleteLibAdvice.html" target="new">删除图书馆公告</a></li> -->
+					<!-- 没有修改图书馆公告的功能 -->
+					<!-- <li><a href="modifyLibAdvice.html" target="new">修改图书馆公告</a></li> -->
+					<li><a href="../common/queryLibAdvice.html" target="new">查看图书馆公告</a></li>
 					<li><a href="">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">
 			<div id="content">
-				<!-- 查询部分 -->
-				<iframe id="newWin" src="../common/queryBook.html" frameborder="0" name="new"></iframe>
+				<iframe id="newWin" src="addLibAdvice.html" frameborder="0" name="new"></iframe>
 			</div>
 		</article>
 	</div>

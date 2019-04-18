@@ -16,16 +16,21 @@
 	</style>
 </head>
 <body>
+	<!-- 查询部分 -->
+				<div id="query">
+					<form class="form-search">
+      					<input name="stuId" type="text" class="input-medium search-query" required="required" placeholder="请输入学生ID">
+      					<button type="submit" class="btn">查询</button>
+    				</form>
+				</div>
 				<!-- 展示部分 -->
 				<div id="display">
 					<table class="table table-striped table-bordered table-hover">
 						<tr>
-							<th>书号</th>
-							<th>借阅人ID</th>
-							<th>借阅时间</th>
-							<th>期限</th>
-							<th>还书时间</th>
-							<th>是否已还</th>
+							<th>学生ID</th>
+							<th>姓名</th>
+							<!-- <th>密码</th> -->
+							<th>余额</th>
 						</tr>
 					</table>
 				</div>

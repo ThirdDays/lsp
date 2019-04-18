@@ -7,14 +7,14 @@
 	<link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
 	<link rel="stylesheet" type="text/css" href="../../css/common.css">
 	<style type="text/css">
-
+		
 	</style>
 </head>
 <body>
 	<header id="top">
 		<!-- 标题展示 -->
 		<div id="title">
-			<span>前台客服</span>
+			<span>图书馆后台管理平台</span>
 		</div>
 		<!-- 用户名加签到展示 -->
 		<div id="user">
@@ -29,20 +29,19 @@
 		<aside class="float_to_left">
 
 			<div id="label">
-				<label>导航栏</label>
+				<label>职工信息管理</label>
 			</div>
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="../common/queryBook.html" target="new">书籍资料查询</a></li>
-					<li><a href="../common/queryHotBook.html" target="new">查看热门书籍</a></li>
-					<li><a href="bookBorrow_cs.html">办理书籍借阅</a></li>
-					<!-- 查看图书馆公告的请求是要传到后台的，这里为了方便测试直接连接到目标页面 -->
-					<li><a href="../common/queryLibAdvice.html" target="new">查看图书馆公告</a></li>
+					<li><a href="addStaff.html" target="new">添加职工信息</a></li>
+					<li><a href="modifyStaff.html" target="new">修改职工信息</a></li>
+					<li><a href="deleteStaff.html" target="new">删除职工信息</a></li>
+					<li><a href="queryStaff.html" target="new">查询职工信息</a></li>
 					<li><a href="">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">
 			<div id="content">
-				<iframe id="newWin" src="../common/queryBook.html" frameborder="0" name="new"></iframe>
+				<iframe id="newWin" src="addStaff.html" frameborder="0" name="new"></iframe>
 			</div>
 		</article>
 	</div>

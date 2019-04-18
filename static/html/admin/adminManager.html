@@ -4,19 +4,17 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
-	 <link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
 	<style type="text/css">
-		#newWin{
-			width: 100%;
-		}
+		
 	</style>
 </head>
 <body>
 	<header id="top">
 		<!-- 标题展示 -->
 		<div id="title">
-			<span>师生使用平台</span>
+			<span>图书馆后台管理平台</span>
 		</div>
 		<!-- 用户名加签到展示 -->
 		<div id="user">
@@ -31,17 +29,19 @@
 		<aside class="float_to_left">
 
 			<div id="label">
-				<label>查看借阅记录</label>
+				<label>管理员信息管理</label>
 			</div>
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="queryBorrowRecord.html" target="new">查看全部借阅记录</a></li>
-					<li><a href="queryBorrowRecord.html" target="new">查看借阅未还记录</a></li>
+					<li><a href="addAdmin.html" target="new">添加管理员信息</a></li>
+					<li><a href="modifyAdmin.html" target="new">修改管理员信息</a></li>
+					<li><a href="deleteAdmin.html" target="new">删除管理员信息</a></li>
+					<li><a href="queryAdmin.html" target="new">查询管理员信息</a></li>
 					<li><a href="">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">
 			<div id="content">
-				<iframe id="newWin" src="queryBorrowRecord.html" frameborder="0" name="new"></iframe>
+				<iframe id="newWin" src="addAdmin.html" frameborder="0" name="new"></iframe>
 			</div>
 		</article>
 	</div>

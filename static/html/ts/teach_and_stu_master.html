@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	 <link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
-	 <link rel="stylesheet" type="text/css" href="../../css/common.css">
-	<style type="text/css">
+	<link href="../../css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+<!-- 	<style type="text/css">
 		*{
 			margin: 0;
 			padding: 0;
@@ -24,7 +24,7 @@
 		#newWin{
 			width: 100%;
 		}
-	</style>
+	</style> -->
 </head>
 <body>
 	<header id="top">
@@ -48,15 +48,18 @@
 				<label>导航栏</label>
 			</div>
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="">书籍资料查询</a></li>
-					<li><a href="">查看借阅记录</a></li>
-					<li><a href="">查看图书馆公告</a></li>
+					<li><a href="../common/queryBook.html" target="new">书籍资料查询</a></li>
+					<li><a href="../common/queryHotBook.html" target="new">查看热门书籍</a></li>
+					<!-- 这里要连接到后台，但暂时先连接到目标页面 -->
+					<li><a href="../common/queryBorrowRecord.html" target="new">查看借阅记录</a></li>
+					<!-- 这里要连接到后台，但暂时先连接到目标页面 -->
+					<li><a href="../common/queryLibAdvice.html" target="new">查看图书馆公告</a></li>
 					<li><a href="">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">
 			<div id="content">
-				<p>欢迎来到这里！请点击左边导航栏中的按钮来进行相关操作！</p>
+				<iframe id="newWin" src="../common/queryBook.html" frameborder="0" name="new"></iframe>
 			</div>
 		</article>
 	</div>
