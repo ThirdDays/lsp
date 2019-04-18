@@ -25,20 +25,27 @@ public class BorrowServiceTest {
         applicationContext=new ClassPathXmlApplicationContext("classpath:spring.xml");
         borrowService=(BorrowService)applicationContext.getBean("borrowServiceImpl");
     }
+    //获取系统当前时间
+    public String getNowTime() {
+        //获取系统当前时间
+        Date date = new Date();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        String nowTime = dateFormat.format(date);
+        return nowTime;
+    }
+
     @Test
     public void loadBookTest() {
-        Date date = new Date();
-        long longTime = date.getTime();
-        Timestamp timestamp = new Timestamp(longTime);
-//        System.out.println(timestamp);
-        boolean bool=borrowService.loadBook("123","456",timestamp);
+        boolean bool=borrowService.loadBook("345","5674","2019-04-17 10:10:10");
+//        borrowService.
         System.out.println(bool);
+
         System.out.println("loadBookTest!");
     }
 
     @Test
     public void returnBookTest() {
-        boolean bool=borrowService.returnBook("123","456");
+        boolean bool=borrowService.returnBook("345","5674");
         System.out.println(bool);
         System.out.println("returnBookTest!");
     }

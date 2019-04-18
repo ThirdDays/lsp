@@ -1,6 +1,6 @@
 package com.lsp.service.interfaces;
 
-import com.lsp.domain.Staff;
+import com.lsp.domain.po.Staff;
 import com.lsp.domain.complex.Entity;
 
 public interface StaffService {
@@ -14,5 +14,7 @@ public interface StaffService {
 
     public boolean login(String staId,String passwords);        //职工登录
     public boolean modifyPasswords(String staId,String newPasswords);   //修改密码
+
+    public String sign(String staffId);                    //职工签到
 
 }

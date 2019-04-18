@@ -44,6 +44,8 @@
         <mapper resource="mappers/teacher.xml"/>
         <mapper resource="mappers/borrow.xml"/>
         <mapper resource="mappers/library.xml"/>
+        <mapper resource="mappers/libAdvice.xml"/>
+        <mapper resource="mappers/user.xml"/>
         <!--使用包内的映射器实现批量处理，该操作会将保内的所有mapper.xml全部配置掉-->
         <!--<package name="com.spring_mybatis_concordance.dao"/>-->
     </mappers>

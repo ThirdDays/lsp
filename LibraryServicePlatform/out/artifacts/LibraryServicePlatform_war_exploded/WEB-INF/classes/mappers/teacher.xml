@@ -3,7 +3,7 @@
 
 <!-- 为这个mapper指定一个唯一的namespace，相当于唯一的标识符。一般情况下名称名可
 随意，但代理模式下，名称名必须为被代理接口的全限定名称。即namespace名称与UserDAO的全限定名对应-->
-<mapper namespace="com.lsp.dao.AdminDAO">
+<mapper namespace="com.lsp.dao.TeacherDAO">
 
     <!--属性解释：
         id：该条insert语句的唯一标识符。一般情况下，id名称可随意，但在代理模式下，id名称必须要
@@ -12,20 +12,34 @@
         resultType：执行SQL语句后返回的数据类型
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
-    <!--<insert id="insertUser" parameterType="com.concordance.domain.User">-->
-        <!--insert into test(id,name,passwords) value(#{id},#{name},#{passwords})-->
-    <!--</insert>-->
-    <!--&lt;!&ndash;删&ndash;&gt;-->
-    <!--<delete id="deleteUserById" parameterType="int">-->
-        <!--delete from test where id=#{id}-->
-    <!--</delete>-->
-    <!--&lt;!&ndash;改&ndash;&gt;-->
-    <!--<update id="updateUser" parameterType="com.concordance.domain.User">-->
-        <!--update test set id=#{id},name=#{name},passwords=#{passwords} where id=#{id}-->
-    <!--</update>-->
-    <!--&lt;!&ndash;查&ndash;&gt;-->
-    <!--<select id="findUserById" parameterType="int" resultType="com.concordance.domain.User">-->
-        <!--select * from test where id=#{id}-->
-    <!--</select>-->
+    <insert id="insertTeacher" parameterType="com.lsp.domain.po.Teacher">
+        insert into teach(teachId,teachName,passwords,balances) value(#{teachId},#{teachName},#{passwords},#{balances})
+    </insert>
+    <!--删-->
+    <delete id="deleteTeacher" parameterType="string">
+        delete from teach where teachId=#{teachId}
+    </delete>
+    <!--改-->
+    <update id="updateTeacher" parameterType="com.lsp.domain.complex.Entity">
+        update teach set teachId=#{object.teachId},teachName=#{object.teachName},passwords=#{object.passwords},balances=#{object.balances}
+        where teachId=#{id}
+    </update>
 
+
+    <!--查-->
+    <select id="findTeacherById" parameterType="string" resultType="com.lsp.domain.po.Teacher">
+        select * from teach where teachId=#{teachId}
+    </select>
+    <select id="findTeacherByName" parameterType="string" resultType="com.lsp.domain.po.Teacher">
+        select * from teach where teachName=#{teachName}
+    </select>
+
+    <!--查询密码-->
+    <select id="findPasswords" parameterType="string" resultType="string">
+        select passwords from teach where teachId=#{teachId}
+    </select>
+    <!--修改密码-->
+    <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
+        update teach set passwords=#{passwords} where teachId=#{id}
+    </update>
 </mapper>

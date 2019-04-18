@@ -5,27 +5,37 @@
 随意，但代理模式下，名称名必须为被代理接口的全限定名称。即namespace名称与UserDAO的全限定名对应-->
 <mapper namespace="com.lsp.dao.BorrowDAO">
 
+    <!--获取借阅人-->
     <select id="queryIdentifier" parameterType="string" resultType="string">
-        select id from user where id=#{identifier}
+        select userId from user where userId=#{identifier}
     </select>
+
     <select id="findBookId" parameterType="string" resultType="string">
-        select bId from book where bId=#{bookId}
+        select bookId from book where bookId=#{bookId}
     </select>
-    <select id="findStatus" parameterType="string" resultType="int">
-        select status from book where bId=#{bookId}
+
+    <select id="getBookStatus" parameterType="string" resultType="int">
+        select status from book where bookId=#{bookId}
     </select>
     <update id="setBookStatus" parameterType="com.lsp.domain.vo.SetBookStatus">
-        update book set status=#{status} where bId=#{bId}
+        update book set status=#{status} where bookId=#{bookId}
     </update>
 
-    <!--查询借阅人上一次的借阅记录-->
-    <select id="queryLastRecord" parameterType="string" resultType="com.lsp.domain.LoadBook">
-        select * from borrow where identifier=#{identifier} order by borrowTime desc limit 1
-    </select>
-    <insert id="insertBorrow" parameterType="com.lsp.domain.LoadBook">
-        insert into borrow(identifier,bookId,borrowTime,term) value(#{identifier},#{bookId},#{borrowTime},#{term})
+    <insert id="insertBorrow" parameterType="com.lsp.domain.po.Borrow">
+        insert into borrow(userId,bookId,borrowTime,term,status) value(#{userId},#{bookId},#{borrowTime},#{term},#{status})
     </insert>
-    <update id="updateBorrow" parameterType="com.lsp.domain.LoadBook">
-        update borrow set returnTime=#{returnTime} where identifier=#{identifier} and bookId=#{bookId}
+    <update id="recordReturnBookTime" parameterType="com.lsp.domain.po.Borrow">
+        update borrow set returnTime=#{returnTime},status=#{status} where userId=#{userId} and bookId=#{bookId} and status=0
     </update>
+    <select id="getBookNotBeReturnedBorrow" parameterType="string" resultType="com.lsp.domain.po.Borrow">
+        select * from borrow where userId=#{userId} and status=0
+    </select>
+
+    <select id="queryBorrowNotBeReturnedButOverdueRecord" resultType="com.lsp.domain.po.Borrow">
+        select * from borrow where status=0
+    </select>
+
+    <select id="queryUserBorrowRecord" parameterType="string" resultType="com.lsp.domain.po.Borrow">
+        select * from borrow where userId=#{userId}
+    </select>
 </mapper>

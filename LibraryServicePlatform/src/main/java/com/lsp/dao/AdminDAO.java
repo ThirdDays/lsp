@@ -1,6 +1,6 @@
 package com.lsp.dao;
 
-import com.lsp.domain.Admin;
+import com.lsp.domain.po.Admin;
 import com.lsp.domain.complex.Entity;
 import com.lsp.domain.vo.ServiceToDAOVO;
 

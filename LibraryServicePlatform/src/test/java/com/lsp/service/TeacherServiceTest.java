@@ -1,6 +1,6 @@
 package com.lsp.service;
 
-import com.lsp.domain.Teacher;
+import com.lsp.domain.po.Teacher;
 import com.lsp.domain.complex.Entity;
 import com.lsp.service.interfaces.TeacherService;
 import org.junit.After;
@@ -23,25 +23,29 @@ public class TeacherServiceTest {
     @Test
     public void insertTeacherTest() {
         Teacher teacher=new Teacher();
-        teacher.settId("123");
-        teacher.settName("teacher");
+        teacher.setTeachId("123");
+        teacher.setTeachName("teacher");
         teacher.setPasswords("123456");
         result=teacherService.insertTeacher(teacher);
+        System.out.println("insertTeacherTest");
     }
     @Test
     public void deleteTeacherTest() {
-        result=teacherService.deleteTeacher("456");
+        result=teacherService.deleteTeacher("123");
+        System.out.println("deleteTeacherTest");
     }
     @Test
     public void updateTeacherTest() {
         Entity<Teacher> entity=new Entity<>();
         Teacher teacher=new Teacher();
-        teacher.settId("456");
-        teacher.settName("name");
+        teacher.setTeachId("456");
+        teacher.setTeachName("name");
         teacher.setPasswords("sdjfie");
+        teacher.setBalances(23.324f);
         entity.setId("123");
         entity.setObject(teacher);
         result=teacherService.updateTeacher(entity);
+        System.out.println("updateTeacherTest");
     }
     @Test
     public void findTeacherByIdTest() {

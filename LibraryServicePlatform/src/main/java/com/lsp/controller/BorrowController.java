@@ -1,17 +1,20 @@
 package com.lsp.controller;
 
+import com.lsp.domain.po.Borrow;
 import com.lsp.service.interfaces.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Controller
-@RequestMapping("/load")
+@RequestMapping("/borrow")
 public class BorrowController {
 
     @Autowired
@@ -19,21 +22,47 @@ public class BorrowController {
     /*
         function:借阅书籍
      */
-    @RequestMapping("/loadBook.do")
-    public String loadBook(String identifier, String bookId, Date term) {
-        long longTime = term.getTime();
-        Timestamp term2 = new Timestamp(longTime);
-        boolean bool=borrowService.loadBook(identifier,bookId,term2);
+    @RequestMapping("/borrowBook.do")
+    public String borrowBook(String userId, String bookId, String term) {
+//        long longTime = term.getTime();
+//        Timestamp term2 = new Timestamp(longTime);
+        System.out.println();
+        boolean bool=borrowService.loadBook(userId,bookId,term);
         if(bool) {  //借阅成功
-
+//            return "";
+            System.out.println("borrow successfu!");
         }
-        return null;
+        System.out.println("borrow failed");
+        return "jsp/custom_service/borrowBook.jsp";
     }
     /*
         function:还书
      */
     @RequestMapping("/returnBook.do")
-    public String returnBook(String identifier,String[] bookIds) {
-        return null;
+    public String returnBook(String userId,String bookId) {
+        boolean bool = borrowService.returnBook(userId,bookId);
+        if(bool) {
+            System.out.println("return successfu!");
+        }
+        System.out.println("return failed");
+        return "jsp/custom_service/returnBook.jsp";
+    }
+
+    @RequestMapping("/queryBorrowNotBeReturnedButOverdueRecord.do")
+    public ModelAndView queryBorrowNotBeReturnedButOverdueRecord() {         //这是查看借阅记录的公共方法，用于查看所有的记录
+        List<Borrow> list = borrowService.queryBorrowNotBeReturnedButOverdueRecord();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("jsp/common/queryBorrowRecord.jsp");
+        modelAndView.addObject("borrowList",list);
+        return modelAndView;
+    }
+
+    @RequestMapping("/queryUserBorrowRecord.do")
+    public ModelAndView queryUserBorrowRecord(String id) { ;
+        List<Borrow> list = borrowService.queryUserBorrowRecord(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("jsp/common/queryBorrowRecord.jsp");
+        modelAndView.addObject("borrowList",list);
+        return modelAndView;
     }
 }

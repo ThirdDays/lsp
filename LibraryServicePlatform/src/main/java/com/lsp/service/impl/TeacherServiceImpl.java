@@ -1,7 +1,7 @@
 package com.lsp.service.impl;
 
 import com.lsp.dao.TeacherDAO;
-import com.lsp.domain.Teacher;
+import com.lsp.domain.po.Teacher;
 import com.lsp.domain.complex.Entity;
 import com.lsp.domain.vo.ServiceToDAOVO;
 import com.lsp.service.interfaces.TeacherService;

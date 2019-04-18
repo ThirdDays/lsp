@@ -1,6 +1,6 @@
 package com.lsp.service.interfaces;
 
-import com.lsp.domain.Teacher;
+import com.lsp.domain.po.Teacher;
 import com.lsp.domain.complex.Entity;
 
 public interface TeacherService  {

@@ -1,15 +1,15 @@
 package com.lsp.domain.vo;
 
 public class SetBookStatus {
-    private String bId;
+    private String bookId;
     private int status;
 
-    public String getbId() {
-        return bId;
+    public String getBookIdId() {
+        return bookId;
     }
 
-    public void setbId(String bId) {
-        this.bId = bId;
+    public void setBookIdId(String bId) {
+        this.bookId = bId;
     }
 
     public int getStatus() {
@@ -23,7 +23,7 @@ public class SetBookStatus {
     @Override
     public String toString() {
         return "SetBookStatus{" +
-                "bId='" + bId + '\'' +
+                "bId='" + bookId + '\'' +
                 ", status=" + status +
                 '}';
     }

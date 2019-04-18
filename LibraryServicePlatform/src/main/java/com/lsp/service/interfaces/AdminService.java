@@ -1,6 +1,6 @@
 package com.lsp.service.interfaces;
 
-import com.lsp.domain.Admin;
+import com.lsp.domain.po.Admin;
 import com.lsp.domain.complex.Entity;
 
 public interface AdminService {

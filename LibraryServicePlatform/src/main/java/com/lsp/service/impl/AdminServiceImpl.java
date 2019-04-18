@@ -1,7 +1,7 @@
 package com.lsp.service.impl;
 
 import com.lsp.dao.AdminDAO;
-import com.lsp.domain.Admin;
+import com.lsp.domain.po.Admin;
 import com.lsp.domain.complex.Entity;
 import com.lsp.domain.vo.ServiceToDAOVO;
 import com.lsp.service.interfaces.AdminService;
@@ -29,7 +29,11 @@ public class AdminServiceImpl implements AdminService {
 //    private ApplicationContext applicationContext;
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
-
+//    private AdminDAO adminDAO;
+//    public AdminServiceImpl() {
+//        SqlSession sqlSession=sqlSessionFactory.openSession();
+//        adminDAO=sqlSession.getMapper(AdminDAO.class);
+//    }
     @Override
     public int insertAdmin(Admin admin) {
 //        SqlSessionFactory sqlSessionFactory=(SqlSessionFactory)this.getApplicationContext().getBean("sqlSessionFactory");

@@ -1,6 +1,7 @@
 package com.lsp.dao;
 
-import com.lsp.domain.Staff;
+import com.lsp.domain.po.Sign;
+import com.lsp.domain.po.Staff;
 import com.lsp.domain.complex.Entity;
 import com.lsp.domain.vo.ServiceToDAOVO;
 
@@ -44,4 +45,6 @@ public interface StaffDAO{
     public String findPasswords(String staId);  //查询密码
 
     public int modifyPasswords(ServiceToDAOVO serviceToDAOVO);  //修改密码
+
+    public int insertSignTime(Sign sign);           //记录签到时间
 }

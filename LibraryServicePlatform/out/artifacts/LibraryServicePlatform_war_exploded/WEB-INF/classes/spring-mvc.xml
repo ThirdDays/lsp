@@ -40,15 +40,16 @@
         <!--配置文件资源名的前缀-->
         <property name="prefix" value="/"></property>
         <!--配置文件资源名的后缀-->
-        <property name="suffix" value=".jsp"></property>
+        <property name="suffix" value=""></property>
         <!--当控制器中传来一个简单文件名字符串时org.springframework.web.servlet.view.InternalResourceViewResolver会
         自动地将prefix对应的值加在文件名前面，同理也会将suffix的值加在文件名的后面。这样方便开发-->
     </bean>
-    
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/admin/adminLogin.do"/>
-            <bean class="com.lsp.intercepter.TestIntercepter"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+
+    <mvc:default-servlet-handler />
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/admin/adminLogin.do"/>-->
+            <!--<bean class="com.lsp.intercepter.TestIntercepter"></bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 </beans>

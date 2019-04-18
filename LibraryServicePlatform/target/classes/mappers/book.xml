@@ -12,67 +12,47 @@
         resultType：执行SQL语句后返回的数据类型
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
-    <insert id="insertBook" parameterType="com.lsp.domain.Book">
-        insert into book(bId,bName) value(#{bookId},#{bookName})
+    <insert id="insertBook" parameterType="com.lsp.domain.po.Book">
+        insert into book(bookId,bookName,author,isFree,hot,pubCompany,category,location)
+        value(#{bookId},#{bookName},#{author},#{status},#{hot},#{pubCompany},#{category},#{location})
     </insert>
     <!--删-->
     <delete id="deleteBook" parameterType="string">
-        delete from book where bId=#{bookId}
+        delete from book where bookId=#{bookId}
     </delete>
     <!--改-->
     <update id="updateBook" parameterType="com.lsp.domain.complex.Entity">
-        update book set bId=#{object.bookId},bName=#{object.bookName} where bId=#{id}
+        update book set bookId=#{object.bookId},bookName=#{object.bookName},author=#{object.author},
+        isFree=#{object.status},hot=#{object.hot},pubCompany=#{object.pubCompany},category=#{object.category},location=#{object.location}
+        where bookId=#{id}
     </update>
 
-    <!--书籍查询的统一入口-->
-    <select id="findBook" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where bId like "%"#{queryCondition}"%" or bName like "%"#{queryCondition}"%" or author like "%"#{queryCondition}"%"
-    </select>
 
     <!--精准查询，单本查询-->
-    <select id="findBookById" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where bId=#{bId}
+    <select id="findBookById" parameterType="string" resultType="com.lsp.domain.po.Book">
+        select * from book where bookId=#{bookId}
     </select>
-    <!--测试语句-->
-    <select id="resultMapTest" parameterType="string" resultMap="test">
-        select * from book where bId=#{bookId}
-    </select>
-    <resultMap id="test" type="com.lsp.domain.BookTest">
-        <id property="bookId" column="bId"/>
-        <result property="bookId" column="bId"/>
-        <result property="bookName" column="bName"/>
-        <result property="bookAuthor" column="author"/>
-        <result property="bookType" column="type"/>
-        <result property="bookHot" column="hot"/>
-    </resultMap>
-    <select id="findBookByName" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where bName=#{bName}
-    </select>
-    <select id="findBookByAuthor" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where author=#{author}
+    <!--书籍查询的统一入口-->
+    <select id="findBooksByText" parameterType="string" resultType="com.lsp.domain.po.Book">
+        select * from book where bookId like "%"#{queryCondition}"%" or bookName like "%"#{queryCondition}"%" or author like "%"#{queryCondition}"%"
+        or pubCompany like "%"#{queryCondition}"%" or category like "%"#{queryCondition}"%" or location like "%"#{queryCondition}"%"
+
     </select>
 
-    <!--多本查询-->
-    <select id="findAllBooks" resultType="com.lsp.domain.Book">
-        select * from book
-    </select>
-    <select id="findBookByType" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where type=#{type}
+    <!--通过书籍类别（分类）来查找书籍-->
+    <select id="findBooksByType" parameterType="string" resultType="com.lsp.domain.po.Book">
+        select * from book where category=#{category}
     </select>
 
-    <!--模糊查询，多本查询-->
-    <select id="blurFindBookByAuthor" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where author like "%"#{author}"%"
-    </select>
-    <select id="blurFindBookByName" parameterType="string" resultType="com.lsp.domain.Book">
-        select * from book where bName like "%"#{bName}"%"
-    </select>
-
-    <!--排序书籍-->
-    <select id="sortBookByHot" resultType="com.lsp.domain.Book">
+    <!--通过热点排序书籍,从大到小-->
+    <select id="sortBooksByHot" resultType="com.lsp.domain.po.Book">
         select * from book order by hot desc
     </select>
 
+    <!--多本查询,查找全部书籍-->
+    <select id="findAllBooks" resultType="com.lsp.domain.po.Book">
+        select * from book
+    </select>
     <!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性-->
     <!--<resultMap id="唯一的标识" type="映射的pojo对象">-->
         <!--<id column="表的主键字段，或者可以为查询语句中的别名字段" jdbcType="字段类型" property="映射pojo对象的主键属性" />-->
@@ -93,4 +73,32 @@
     <!--</collection>-->
 
     <!--注意：<collection>标签中的column：要传递给select查询语句的参数，如果传递多个参数，格式为column= ” {参数名1=表字段1,参数名2=表字段2} ；-->
+
+    <!--测试语句-->
+    <!--<select id="resultMapTest" parameterType="string" resultMap="test">-->
+        <!--select * from book where bId=#{bookId}-->
+    <!--</select>-->
+    <!--<resultMap id="test" type="com.lsp.domain.BookTest">-->
+        <!--<id property="bookId" column="bId"/>-->
+        <!--<result property="bookId" column="bId"/>-->
+        <!--<result property="bookName" column="bName"/>-->
+        <!--<result property="bookAuthor" column="author"/>-->
+        <!--<result property="bookType" column="type"/>-->
+        <!--<result property="bookHot" column="hot"/>-->
+    <!--</resultMap>-->
+
+
+    <!--<select id="findBookByName" parameterType="string" resultType="com.lsp.domain.po.Book">-->
+    <!--select * from book where bName=#{bName}-->
+    <!--</select>-->
+    <!--<select id="findBookByAuthor" parameterType="string" resultType="com.lsp.domain.po.Book">-->
+    <!--select * from book where author=#{author}-->
+    <!--&lt;!&ndash;</select>-->
+    <!--&lt;!&ndash;模糊查询，多本查询&ndash;&gt;-->
+    <!--<select id="blurFindBookByAuthor" parameterType="string" resultType="com.lsp.domain.po.Book">-->
+    <!--select * from book where author like "%"#{author}"%"-->
+    <!--</select>-->
+    <!--<select id="blurFindBookByName" parameterType="string" resultType="com.lsp.domain.po.Book">-->
+    <!--select * from book where bName like "%"#{bName}"%"-->
+    <!--&lt;!&ndash;</select>-->
 </mapper>

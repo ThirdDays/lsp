@@ -12,31 +12,38 @@
         resultType：执行SQL语句后返回的数据类型
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
-    <insert id="insertStaff" parameterType="com.lsp.domain.Staff">
-        insert into staff(staId,staName,passwords) value(#{staId},#{staName},#{passwords})
+    <insert id="insertStaff" parameterType="com.lsp.domain.po.Staff">
+        insert into staff(staffId,staffName,passwords,section,balances)
+        value(#{staffId},#{staffName},#{passwords},#{section},#{balances})
     </insert>
     <!--删-->
     <delete id="deleteStaff" parameterType="string">
-        delete from staff where staId=#{staId}
+        delete from staff where staffId=#{staffId}
     </delete>
     <!--改-->
     <update id="updateStaff" parameterType="com.lsp.domain.complex.Entity">
-        update staff set staId=#{object.staId},staName=#{object.staName},passwords=#{object.passwords} where staId=#{id}
+        update staff set staffId=#{object.staffId},staffName=#{object.staffName},passwords=#{object.passwords},section=#{object.section},balances=#{object.balances}
+        where staffId=#{id}
     </update>
 
     <!--查-->
-    <select id="findStaffById" parameterType="string" resultType="com.lsp.domain.Staff">
-        select * from staff where staId=#{staId}
+    <select id="findStaffById" parameterType="string" resultType="com.lsp.domain.po.Staff">
+        select * from staff where staffId=#{staffId}
     </select>
-    <select id="findStaffByName" parameterType="string" resultType="com.lsp.domain.Staff">
-        select * from staff where staName=#{staName}
+    <select id="findStaffByName" parameterType="string" resultType="com.lsp.domain.po.Staff">
+        select * from staff where staffName=#{staffName}
     </select>
     <!--查询密码-->
     <select id="findPasswords" parameterType="string" resultType="string">
-        select passwords from staff where staId=#{staId}
+        select passwords from staff where staffId=#{staffId}
     </select>
     <!--修改密码（更新密码）-->
     <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
-        update staff set passwords=#{passwords} where staId=#{id}
+        update staff set passwords=#{passwords} where staffId=#{id}
     </update>
+    <!--插入签到时间-->
+     <insert id="insertSignTime" parameterType="com.lsp.domain.po.Sign">
+         insert into sign(staffId,signTime)
+         value (#{staffId},#{signTime})
+     </insert>
 </mapper>

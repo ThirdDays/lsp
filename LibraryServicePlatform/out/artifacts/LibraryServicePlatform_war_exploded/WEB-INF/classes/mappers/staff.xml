@@ -3,7 +3,7 @@
 
 <!-- 为这个mapper指定一个唯一的namespace，相当于唯一的标识符。一般情况下名称名可
 随意，但代理模式下，名称名必须为被代理接口的全限定名称。即namespace名称与UserDAO的全限定名对应-->
-<mapper namespace="com.lsp.dao.AdminDAO">
+<mapper namespace="com.lsp.dao.StaffDAO">
 
     <!--属性解释：
         id：该条insert语句的唯一标识符。一般情况下，id名称可随意，但在代理模式下，id名称必须要
@@ -12,20 +12,38 @@
         resultType：执行SQL语句后返回的数据类型
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
-    <!--<insert id="insertUser" parameterType="com.concordance.domain.User">-->
-        <!--insert into test(id,name,passwords) value(#{id},#{name},#{passwords})-->
-    <!--</insert>-->
-    <!--&lt;!&ndash;删&ndash;&gt;-->
-    <!--<delete id="deleteUserById" parameterType="int">-->
-        <!--delete from test where id=#{id}-->
-    <!--</delete>-->
-    <!--&lt;!&ndash;改&ndash;&gt;-->
-    <!--<update id="updateUser" parameterType="com.concordance.domain.User">-->
-        <!--update test set id=#{id},name=#{name},passwords=#{passwords} where id=#{id}-->
-    <!--</update>-->
-    <!--&lt;!&ndash;查&ndash;&gt;-->
-    <!--<select id="findUserById" parameterType="int" resultType="com.concordance.domain.User">-->
-        <!--select * from test where id=#{id}-->
-    <!--</select>-->
+    <insert id="insertStaff" parameterType="com.lsp.domain.po.Staff">
+        insert into staff(staffId,staffName,passwords,section,balances)
+        value(#{staffId},#{staffName},#{passwords},#{section},#{balances})
+    </insert>
+    <!--删-->
+    <delete id="deleteStaff" parameterType="string">
+        delete from staff where staffId=#{staffId}
+    </delete>
+    <!--改-->
+    <update id="updateStaff" parameterType="com.lsp.domain.complex.Entity">
+        update staff set staffId=#{object.staffId},staffName=#{object.staffName},passwords=#{object.passwords},section=#{object.section},balances=#{object.balances}
+        where staffId=#{id}
+    </update>
 
+    <!--查-->
+    <select id="findStaffById" parameterType="string" resultType="com.lsp.domain.po.Staff">
+        select * from staff where staffId=#{staffId}
+    </select>
+    <select id="findStaffByName" parameterType="string" resultType="com.lsp.domain.po.Staff">
+        select * from staff where staffName=#{staffName}
+    </select>
+    <!--查询密码-->
+    <select id="findPasswords" parameterType="string" resultType="string">
+        select passwords from staff where staffId=#{staffId}
+    </select>
+    <!--修改密码（更新密码）-->
+    <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
+        update staff set passwords=#{passwords} where staffId=#{id}
+    </update>
+    <!--插入签到时间-->
+     <insert id="insertSignTime" parameterType="com.lsp.domain.po.Sign">
+         insert into sign(staffId,signTime)
+         value (#{staffId},#{signTime})
+     </insert>
 </mapper>

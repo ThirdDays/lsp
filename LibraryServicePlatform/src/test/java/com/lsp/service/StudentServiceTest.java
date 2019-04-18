@@ -1,6 +1,6 @@
 package com.lsp.service;
 
-import com.lsp.domain.Student;
+import com.lsp.domain.po.Student;
 import com.lsp.domain.complex.Entity;
 import com.lsp.service.interfaces.StudentService;
 import org.junit.After;
@@ -27,10 +27,12 @@ public class StudentServiceTest {
         student.setStuName("stu");
         student.setPasswords("123456");
         result=studentService.insertStudent(student);
+        System.out.println("insertStudentTest");
     }
     @Test
     public void deleteStudentTest() {
         result=studentService.deleteStudent("456");
+        System.out.println("deleteStudentTest");
     }
     @Test
     public void updateStudentTest() {
@@ -42,6 +44,7 @@ public class StudentServiceTest {
         entity.setId("123");
         entity.setObject(student);
         result=studentService.updateStudent(entity);
+        System.out.println("updateStudentTest");
     }
     @Test
     public void findStudentByIdTest() {
@@ -51,7 +54,7 @@ public class StudentServiceTest {
     }
     @Test
     public void findStudentByNameTest() {
-        Student student=studentService.findStudentByName("student");
+        Student student=studentService.findStudentByName("stu");
         System.out.println(student);
         System.out.println("findStudentByNameTest");
     }

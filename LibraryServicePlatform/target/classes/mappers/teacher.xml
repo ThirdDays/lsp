@@ -12,33 +12,34 @@
         resultType：执行SQL语句后返回的数据类型
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
-    <insert id="insertTeacher" parameterType="com.lsp.domain.Teacher">
-        insert into teacher(tId,tName,passwords) value(#{tId},#{tName},#{passwords})
+    <insert id="insertTeacher" parameterType="com.lsp.domain.po.Teacher">
+        insert into teach(teachId,teachName,passwords,balances) value(#{teachId},#{teachName},#{passwords},#{balances})
     </insert>
     <!--删-->
     <delete id="deleteTeacher" parameterType="string">
-        delete from teacher where tId=#{tId}
+        delete from teach where teachId=#{teachId}
     </delete>
     <!--改-->
     <update id="updateTeacher" parameterType="com.lsp.domain.complex.Entity">
-        update teacher set tId=#{object.tId},tName=#{object.tName},passwords=#{object.passwords} where tId=#{id}
+        update teach set teachId=#{object.teachId},teachName=#{object.teachName},passwords=#{object.passwords},balances=#{object.balances}
+        where teachId=#{id}
     </update>
 
 
     <!--查-->
-    <select id="findTeacherById" parameterType="string" resultType="com.lsp.domain.Teacher">
-        select * from teacher where tId=#{tId}
+    <select id="findTeacherById" parameterType="string" resultType="com.lsp.domain.po.Teacher">
+        select * from teach where teachId=#{teachId}
     </select>
-    <select id="findTeacherByName" parameterType="string" resultType="com.lsp.domain.Teacher">
-        select * from teacher where tName=#{tName}
+    <select id="findTeacherByName" parameterType="string" resultType="com.lsp.domain.po.Teacher">
+        select * from teach where teachName=#{teachName}
     </select>
 
     <!--查询密码-->
     <select id="findPasswords" parameterType="string" resultType="string">
-        select passwords from teacher where tId=#{tId}
+        select passwords from teach where teachId=#{teachId}
     </select>
     <!--修改密码-->
     <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
-        update teacher set passwords=#{passwords} where tId=#{id}
+        update teach set passwords=#{passwords} where teachId=#{id}
     </update>
 </mapper>

@@ -12,34 +12,36 @@
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
 
-    <insert id="insertAdmin" parameterType="com.lsp.domain.Admin">
-        insert into admin(aId,aName,passwords,email,telphone,libName,permissionLevel)
-        value(#{aId},#{aName},#{passwords},#{email},#{telphone},#{libName},#{permissionLevel})
+    <!--增-->
+    <insert id="insertAdmin" parameterType="com.lsp.domain.po.Admin">
+        insert into admin(adminId,adminName,passwords,balances)
+        value(#{adminId},#{adminName},#{passwords},#{balances})
     </insert>
     <!--删-->
     <delete id="deleteAdminById" parameterType="string">
-        delete from admin where aId=#{aId}
+        delete from admin where adminId=#{adminId}
     </delete>
     <!--改-->
     <update id="updateAdmin" parameterType="com.lsp.domain.complex.Entity">
-        update admin set aId=#{object.aId},aName=#{object.aName},passwords=#{object.passwords} where adminId=#{id}
+        update admin set adminId=#{object.adminId},adminName=#{object.adminName},passwords=#{object.passwords},balances=#{object.balances}
+        where adminId=#{id}
     </update>
 
 
     <!--查-->
-    <select id="findAdminById" parameterType="string" resultType="com.lsp.domain.Admin">
-        select * from admin where aId=#{aId}
+    <select id="findAdminById" parameterType="string" resultType="com.lsp.domain.po.Admin">
+        select * from admin where adminId=#{adminId}
     </select>
-    <select id="findAdminByName" parameterType="string" resultType="com.lsp.domain.Admin">
-        select * from admin where aName=#{aName}
+    <select id="findAdminByName" parameterType="string" resultType="com.lsp.domain.po.Admin">
+        select * from admin where adminName=#{adminName}
     </select>
 
     <!--查询密码-->
     <select id="findPasswords" parameterType="string" resultType="string">
-        select passwords from admin where aId=#{adminId}
+        select passwords from admin where adminId=#{adminId}
     </select>
     <!--修改密码-->
     <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
-        update admin set passwords=#{passwords} where aId=#{id}
+        update admin set passwords=#{passwords} where adminId=#{id}
     </update>
 </mapper>

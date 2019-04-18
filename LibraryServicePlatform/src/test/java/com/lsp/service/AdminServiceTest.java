@@ -1,6 +1,6 @@
 package com.lsp.service;
 
-import com.lsp.domain.Admin;
+import com.lsp.domain.po.Admin;
 import com.lsp.domain.complex.Entity;
 import com.lsp.service.interfaces.AdminService;
 import org.junit.Before;
@@ -22,9 +22,10 @@ public class AdminServiceTest {
     public void insertAdminTest() {
         //模拟数据
         Admin admin=new Admin();
-        admin.setaId("123");
-        admin.setaName("tom");
+        admin.setAdminId("123");
+        admin.setAdminName("tom");
         admin.setPasswords("123456");
+        admin.setBalances(0);
 
         int result=adminService.insertAdmin(admin);
         System.out.println(result);
@@ -43,9 +44,10 @@ public class AdminServiceTest {
         Entity<Admin> entity=new Entity<>();
         entity.setId("123");
         Admin admin=new Admin();
-        admin.setaId("456");
-        admin.setaName("bob");
+        admin.setAdminId("456");
+        admin.setAdminName("bob");
         admin.setPasswords("12345678");
+        admin.setBalances(0);
         entity.setObject(admin);
         int result=adminService.updateAdmin(entity);
         System.out.println(result);

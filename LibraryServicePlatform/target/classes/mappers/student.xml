@@ -12,31 +12,31 @@
         resultType：执行SQL语句后返回的数据类型
         #{}中的符号名称如果是简单类型就可随意，但如果是复杂类型就必须与对象中的属性名一致
     -->
-    <insert id="insertStudent" parameterType="com.lsp.domain.Student">
-        insert into student(stuId,stuName,passwords) value(#{stuId},#{stuName},#{passwords})
+    <insert id="insertStudent" parameterType="com.lsp.domain.po.Student">
+        insert into stu(stuId,stuName,passwords,balances) value(#{stuId},#{stuName},#{passwords},#{balances})
     </insert>
     <!--删-->
     <delete id="deleteStudent" parameterType="string">
-        delete from student where stuId=#{stuId}
+        delete from stu where stuId=#{stuId}
     </delete>
     <!--改-->
     <update id="updateStudent" parameterType="com.lsp.domain.complex.Entity">
-        update student set stuId=#{object.stuId},stuName=#{object.stuName},passwords=#{object.passwords} where stuId=#{id}
+        update stu set stuId=#{object.stuId},stuName=#{object.stuName},passwords=#{object.passwords} where stuId=#{id}
     </update>
     <!--查-->
-    <select id="findStudentById" parameterType="string" resultType="com.lsp.domain.Student">
-        select * from student where stuId=#{stuId}
+    <select id="findStudentById" parameterType="string" resultType="com.lsp.domain.po.Student">
+        select * from stu where stuId=#{stuId}
     </select>
-    <select id="findStudentByName" parameterType="string" resultType="com.lsp.domain.Student">
-        select * from student where stuName=#{stuName}
+    <select id="findStudentByName" parameterType="string" resultType="com.lsp.domain.po.Student">
+        select * from stu where stuName=#{stuName}
     </select>
 
     <!--查询密码-->
     <select id="findPasswords" parameterType="string" resultType="string">
-        select passwords from student where stuId=#{stuId}
+        select passwords from stu where stuId=#{stuId}
     </select>
     <!--修改密码-->
     <update id="modifyPasswords" parameterType="com.lsp.domain.vo.ServiceToDAOVO">
-        update student set passwords=#{passwords} where stuId=#{id}
+        update stu set passwords=#{passwords} where stuId=#{id}
     </update>
 </mapper>
