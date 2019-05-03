@@ -22,21 +22,36 @@ public class BookController {
     @Autowired
     private ApplicationContext applicationContext;
     @RequestMapping("/addBook.do")
-    public String addBook(Book book) {
+    public String addBook(Book book,HttpServletRequest request) {
         int result=bookService.insertBook(book);
-        return null;
+        if(result > 0) {
+            request.setAttribute("msg","操作成功！");
+            return "jsp/admin/addBook.jsp";
+        }
+        request.setAttribute("msg","操作失败！");
+        return "jsp/admin/addBook.jsp";
     }
 
     @RequestMapping("/deleteBook.do")
-    public String deleteBook(String bookId) {
+    public String deleteBook(String bookId,HttpServletRequest request) {
         int result=bookService.deleteBook(bookId);
-        return null;
+        if(result > 0) {
+            request.setAttribute("msg","操作成功！");
+            return "jsp/admin/deleteBook.jsp";
+        }
+        request.setAttribute("msg","操作失败！");
+        return "jsp/admin/deleteBook.jsp";
     }
 
     @RequestMapping("/modifyBook.do")
-    public String modifyBook(Entity<Book> entity) {
-        int reslut=bookService.updateBook(entity);
-        return null;
+    public String modifyBook(Entity<Book> entity,HttpServletRequest request) {
+        int result=bookService.updateBook(entity);
+        if(result > 0) {
+            request.setAttribute("msg","操作成功！");
+            return "jsp/admin/modifyBook.jsp";
+        }
+        request.setAttribute("msg","操作失败！");
+        return "jsp/admin/modifyBook.jsp";
     }
 
     @RequestMapping("/queryBook.do")

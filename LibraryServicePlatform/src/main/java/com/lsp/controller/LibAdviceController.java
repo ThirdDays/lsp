@@ -17,12 +17,14 @@ public class LibAdviceController {
     @Autowired
     private LibAdviceService libAdviceService;
     @RequestMapping("/addLibAdvice.do")
-    public ModelAndView addLibAdvice(String content) {
+    public String addLibAdvice(String content,HttpServletRequest request) {
         boolean bool = libAdviceService.addLibAdvice(content);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("jsp/admin/addLibAdvice.jsp");
-        modelAndView.addObject("messages",bool);
-        return modelAndView;
+        if(bool) {
+            request.setAttribute("msg","操作成功！");
+            return "jsp/admin/addLibAdvice.jsp";
+        }
+        request.setAttribute("msg","操作失败！");
+        return "jsp/admin/addLibAdvice.jsp";
     }
 
 //    @RequestMapping("/deleteLibAdvice.do")

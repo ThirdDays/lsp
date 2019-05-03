@@ -39,12 +39,12 @@ public class AdminContorller {
         boolean bool = userService.addUser(admin.getAdminId(),admin.getAdminName());
 //        ModelAndView modelAndView=new ModelAndView();
         if(result>0 && bool == true) {  //注册成功
-            request.setAttribute("msg","successful");
+            request.setAttribute("msg","操作成功！");
             System.out.println("successful");
             return "jsp/admin/addAdmin.jsp";
         }
         System.out.println("fail");
-        request.setAttribute("msg","failed");
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/addAdmin.jsp";    //注册失败
     }
     /*
@@ -57,11 +57,11 @@ public class AdminContorller {
         boolean bool=userService.deleteUser(adminId);
 //        ModelAndView modelAndView=new ModelAndView();
         if(result>0 && bool==true) {  //删除成功
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             System.out.println("successful");
             return "jsp/admin/deleteAdmin.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/deleteAdmin.jsp";    //删除失败
     }
     /*
@@ -79,11 +79,11 @@ public class AdminContorller {
         en.setObject(user);
         boolean bool = userService.modifyUser(en);
         if(result>0 && bool == true) {  //更新成功
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             System.out.println("successful");
             return "jsp/admin/modifyAdmin.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/modifyAdmin.jsp";   //更新失败
     }
 
@@ -91,10 +91,11 @@ public class AdminContorller {
         function:管理员信息查询
      */
     @RequestMapping("/queryAdminById.do")
-    public String queryAdminById(String adminId) {
+    public String queryAdminById(String adminId,HttpServletRequest request) {
 //        AdminService adminService=(AdminService)applicationContext.getBean("adminServiceImpl");
         Admin admin=adminService.findAdminById(adminId);
-        return null;
+        request.setAttribute("admin",admin);
+        return "jsp/admin/queryAdmin.jsp";
     }
     @RequestMapping("/queryAdminByName.do")
     public String queryAdminByName(String adminName) {
@@ -116,27 +117,19 @@ public class AdminContorller {
 
         boolean result=adminService.login(adminId,passwords);       //执行登录操作
         if(result) {        //登录成功
+            httpSession.setAttribute("adminIdSession",adminId);
+            httpSession.setAttribute("passwordsSession",passwords);
+
+            Cookie adminIdCookie=new Cookie("adminIdCookie",adminId);
+            Cookie passwordsCookie=new Cookie("passwordsCookie",passwords);
+            httpServletResponse.addCookie(adminIdCookie);
+            httpServletResponse.addCookie(passwordsCookie);
+
+            httpServletRequest.setAttribute("id",adminId);
             return "jsp/admin/adminMaster.jsp";
         }
+        httpServletRequest.setAttribute("msg","用户名或密码错误！");
         return "index.jsp";                                 //登录失败返回首页
-//        ModelAndView modelAndView=new ModelAndView();
-//        if(result==true) {  //登录成功
-//            httpSession.setAttribute("adminIdSession",adminId);
-//            httpSession.setAttribute("passwordsSession",passwords);
-//
-//            Cookie adminIdCookie=new Cookie("adminIdCookie",adminId);
-//            Cookie passwordsCookie=new Cookie("passwordsCookie",passwords);
-//            httpServletResponse.addCookie(adminIdCookie);
-//            httpServletResponse.addCookie(passwordsCookie);
-//
-//            modelAndView.addObject("msg","登录成功！");
-//            modelAndView.setViewName("");
-//            return modelAndView;
-//        }
-//        modelAndView.addObject("msg","工号或密码错误！");
-//        modelAndView.setViewName("");
-//        return modelAndView;
-//        String path = httpServletRequest.getContextPath();
     }
 
     @RequestMapping("/adminLogout.do")
@@ -148,28 +141,27 @@ public class AdminContorller {
         }
         httpSession.removeAttribute("adminIdSession");      //消除session域中的内容
         httpSession.removeAttribute("passwordsSession");
-        return null;
+        return "index.jsp";
     }
     /*
         function:修改密码
      */
     @RequestMapping("/modifyAdminPasswords.do")
-    public ModelAndView modifyAdminPasswords(String adminId,String newPasswords) {
+    public String modifyAdminPasswords(String adminId,String oldPasswords,String newPasswords,HttpServletRequest request) {
         boolean result = adminService.modifyPasswords(adminId, newPasswords);  //修改密码操作
-        ModelAndView modelAndView = new ModelAndView();
+
         if (result == true) {  //修改成功
-            modelAndView.addObject("msg", "修改密码成功！");
-            modelAndView.setViewName("");
-            return modelAndView;
+            request.setAttribute("msg","修改密码成功！");
+            return "jsp/admin/adminMaster.jsp";
         }
-        modelAndView.addObject("msg", "修改密码失败！");
-        modelAndView.setViewName("");
-        return modelAndView;
+        request.setAttribute("msg","修改密码失败！");
+        return "jsp/admin/modifyPasswords.jsp";
     }
 
     //管理员签到
     @RequestMapping("/adminSignIn.do")
     public String adminSignIn() {
+//        adminService.
         return null;
     }
 }

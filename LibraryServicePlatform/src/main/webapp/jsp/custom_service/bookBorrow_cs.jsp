@@ -28,9 +28,9 @@
 		<!-- 用户名加签到展示 -->
 		<div id="user">
 			<span><a href="<%=path %>/jsp/custom_service/custom_service_master.jsp">首页</a></span>
-				<span>用户名：</span>
-				<span></span>
-				<span><a>签到</a></span>
+				<%--<span>用户名：</span>--%>
+				<%--<span></span>--%>
+				<%--<span><a>签到</a></span>--%>
 		</div>
 	
 	</header>
@@ -46,7 +46,7 @@
 					<li><a href="returnBook.jsp" target="new">办理书籍归还业务</a></li>
 					<!-- 该链接要连接到后台，这里暂时先连接到目标页面 -->
 					<li><a href="<%= path%>/borrow/queryBorrowNotBeReturnedButOverdueRecord.do" target="new">查看书籍逾期未还</a></li>
-					<li><a href="">退出</a></li>
+					<li><a href="<%=path %>/teach/teachLogout.do">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">

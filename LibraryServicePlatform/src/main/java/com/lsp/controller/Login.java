@@ -11,8 +11,6 @@ public class Login {
         System.out.println("login");
         if(identifier.equals("admin")) {
             return "admin/adminLogin.do";
-        }else if(identifier.equals("staff")) {
-            return "staff/staffLogin.do";
         }else if(identifier.equals("customService")) {
             return "staff/staffLogin.do";
         }else if(identifier.equals("teachr")) {

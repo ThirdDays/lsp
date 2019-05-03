@@ -2,6 +2,10 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String msg = (String)request.getAttribute("msg");
+	if(msg == null) {
+		msg="null";
+	}
 %>
 
 <!DOCTYPE html>
@@ -109,4 +113,12 @@
 	</div>
 
 </body>
+<script type="text/javascript">
+	var messages="null";
+	messages="<%=msg %>";
+	// window.alert(messages);
+	if(messages != "null") {
+		window.alert(messages);
+	}
+</script>
 </html>

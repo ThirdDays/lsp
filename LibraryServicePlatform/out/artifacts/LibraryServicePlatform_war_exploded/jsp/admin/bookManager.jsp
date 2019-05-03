@@ -25,9 +25,9 @@
 		<!-- 用户名加签到展示 -->
 		<div id="user">
 			<span><a href="<%=path%>/jsp/admin/adminMaster.jsp">首页</a></span>
-				<span>用户名：</span>
-				<span></span>
-				<span><a>签到</a></span>
+				<%--<span>用户名：</span>--%>
+				<%--<span></span>--%>
+				<%--<span><a>签到</a></span>--%>
 		</div>
 	
 	</header>
@@ -44,7 +44,7 @@
 					<li><a href="deleteBook.jsp" target="new">删除书籍资料信息</a></li>
 					<li><a href="../common/queryBook.jsp" target="new">查询书籍资料信息</a></li>
 					<li><a href="<%=path %>/book/queryHotBook.do" target="new">查看热门书籍资料信息</a></li>
-					<li><a href="">退出</a></li>
+					<li><a href="<%=path %>/admin/adminLogout.do">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">

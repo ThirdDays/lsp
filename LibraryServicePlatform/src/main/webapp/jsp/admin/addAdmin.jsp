@@ -6,7 +6,7 @@
 	if(msg == null) {
 		msg="null";
 	}
-	System.out.println("msg:"+msg);
+//	System.out.println("msg:"+msg);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,10 +87,6 @@
       				<label>密码：</label>
       				<input type="text" name="passwords" placeholder="请输入初始密码" required="required">
       			</div>
-      			<div>
-      				<label>余额：</label>
-      				<input type="text" name="balances" placeholder="请输入初始余额" required="required">
-      			</div>
       			<button class="inline_to_block btn center" type="submit">添加</button>
       		</div>
 		</form>
@@ -100,11 +96,10 @@
 
 <script type="text/javascript">
 	var messages="null";
-	messages=<%=msg %>;
-	console.log(messages);
+	messages="<%=msg %>";
 	// window.alert(messages);
-	// if(messages != "null") {
-	// 	window.alert(messages);
-	// }
+	if(messages != "null") {
+		window.alert(messages);
+	}
 </script>
 </html>

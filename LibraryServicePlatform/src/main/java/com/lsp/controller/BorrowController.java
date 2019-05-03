@@ -23,15 +23,16 @@ public class BorrowController {
         function:借阅书籍
      */
     @RequestMapping("/borrowBook.do")
-    public String borrowBook(String userId, String bookId, String term) {
+    public String borrowBook(String userId, String bookId, String term,HttpServletRequest request) {
 //        long longTime = term.getTime();
 //        Timestamp term2 = new Timestamp(longTime);
-        System.out.println();
         boolean bool=borrowService.loadBook(userId,bookId,term);
         if(bool) {  //借阅成功
-//            return "";
+            request.setAttribute("msg","操作成功！");
             System.out.println("borrow successfu!");
+            return "jsp/custom_service/borrowBook.jsp";
         }
+        request.setAttribute("msg","操作失败！");
         System.out.println("borrow failed");
         return "jsp/custom_service/borrowBook.jsp";
     }
@@ -39,11 +40,14 @@ public class BorrowController {
         function:还书
      */
     @RequestMapping("/returnBook.do")
-    public String returnBook(String userId,String bookId) {
+    public String returnBook(String userId,String bookId,HttpServletRequest request) {
         boolean bool = borrowService.returnBook(userId,bookId);
         if(bool) {
+            request.setAttribute("msg","操作成功！");
             System.out.println("return successfu!");
+            return "jsp/custom_service/returnBook.jsp";
         }
+        request.setAttribute("msg","操作失败！");
         System.out.println("return failed");
         return "jsp/custom_service/returnBook.jsp";
     }

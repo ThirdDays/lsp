@@ -31,10 +31,10 @@ public class TeacherController {
         int result=teacherService.insertTeacher(teacher);
         boolean bool = userService.addUser(teacher.getTeachId(),teacher.getTeachName());
         if(result>0&&bool==true) {
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             return "jsp/admin/addTeach.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/addTeach.jsp";
     }
     /*
@@ -46,10 +46,10 @@ public class TeacherController {
         boolean bool=userService.deleteUser(teachId);
         //以下以后在补充
         if(result>0 && bool == true) {
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             return "jsp/admin/deleteTeach.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/deleteTeach.jsp";
     }
     /*
@@ -66,24 +66,27 @@ public class TeacherController {
         en.setObject(user);
         boolean bool = userService.modifyUser(en);
         if(result>0&&bool==true) {
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             return "jsp/admin/modifyTeach.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/modifyTeach.jsp";
     }
     /*
         function:教师信息查询
      */
     @RequestMapping("/queryTeachById.do")
-    public String queryTeachById(String tId) {
+    public String queryTeachById(String tId,HttpServletRequest request) {
         Teacher teacher=teacherService.findTeacherById(tId);
-        return null;
+        request.setAttribute("teach",teacher);
+        return "jsp/admin/queryTeach.jsp";
     }
 
     @RequestMapping("/queryTeachByName.do")
     public String teachQueryByName(String tName) {
         Teacher teacher=teacherService.findTeacherByName(tName);
+//        request.setAttribute("teach",teacher);
+//        return "jsp/admin/queryTeach.jsp";
         return null;
     }
     /*
@@ -97,55 +100,44 @@ public class TeacherController {
 
         boolean bool=teacherService.login(teachId,passwords);
         if(bool) {
+            session.setAttribute("teachIdSession",teachId);
+            session.setAttribute("passwordsSession",passwords);
+
+            Cookie teachIdCookie=new Cookie("teachIdCookie",teachId);
+            Cookie passwordsCookie=new Cookie("passwordsCookie",passwords);
+            response.addCookie(teachIdCookie);
+            response.addCookie(passwordsCookie);
+            request.setAttribute("id",teachId);
             return "jsp/ts/tsMaster.jsp";
         }
-//        ModelAndView modelAndView=new ModelAndView();
-//        if(bool) {
-//            session.setAttribute("tIdSession",teachId);
-//            session.setAttribute("passwordsSession",passwords);
-//            Cookie tIdCookie=new Cookie("tIdCookie",teachId);
-//            Cookie passwordsCookie=new Cookie("passwordsCookie",passwords);
-//            response.addCookie(tIdCookie);
-//            response.addCookie(passwordsCookie);
-//
-//            modelAndView.addObject("msg","登录成功！");
-//            modelAndView.setViewName("");       //以后在写
-//            return modelAndView;
-//        }
-//        modelAndView.addObject("msg","工号或密码错误！");
-//        modelAndView.setViewName("");       //以后在写
-//        return modelAndView;
+        request.setAttribute("msg","用户名或密码错误！");
         return "index.jsp";
     }
 
     //登出
     @RequestMapping("/teachLogout.do")
-    public String teachLogout() {
-        return null;
+    public String teachLogout(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,HttpSession httpSession) {
+        Cookie[] cookies=httpServletRequest.getCookies();
+        for(Cookie cookie:cookies) {
+            cookie.setMaxAge(0);            //消除cookie
+            httpServletResponse.addCookie(cookie);
+        }
+        httpSession.removeAttribute("teachIdSession");      //消除session域中的内容
+        httpSession.removeAttribute("passwordsSession");
+        return "index.jsp";
     }
 
     @RequestMapping("/modifyTeachPasswords.do")
-    public ModelAndView modifyTeachPasswords(String tId,String newPasswords) {     //修改密码
-        boolean bool=teacherService.modifyPasswords(tId,newPasswords);
+    public ModelAndView modifyTeachPasswords(String teachId,String newPasswords) {     //修改密码
+        boolean bool=teacherService.modifyPasswords(teachId,newPasswords);
         ModelAndView modelAndView=new ModelAndView();
         if(bool) {
             modelAndView.addObject("msg","修改密码成功！");
-            modelAndView.setViewName("");
+            modelAndView.setViewName("jsp/ts/tsMaster.jsp");
             return modelAndView;
         }
         modelAndView.addObject("msg","修改密码失败！");
-        modelAndView.setViewName("");
+        modelAndView.setViewName("jsp/ts/modifyPasswords.jsp");
         return modelAndView;
     }
-    //本方法以后在具体补充，登出日志暂时不考虑
-//    public String adminLogout(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,HttpSession httpSession) {       //登出，主要是清除cookies和记录登出日志（记录登出日志暂时不考虑）
-//        Cookie[] cookies=httpServletRequest.getCookies();
-//        for(Cookie cookie:cookies) {
-//            cookie.setMaxAge(0);            //消除cookie
-//            httpServletResponse.addCookie(cookie);
-//        }
-//        httpSession.removeAttribute("staIdSession");      //消除session域中的内容
-//        httpSession.removeAttribute("passwordsSession");
-//        return null;
-//    }
 }

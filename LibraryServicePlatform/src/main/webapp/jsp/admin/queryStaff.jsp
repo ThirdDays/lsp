@@ -1,7 +1,9 @@
+<%@ page import="com.lsp.domain.po.Staff" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	Staff staff =(Staff) request.getAttribute("staff");
 %>
 
 <!DOCTYPE html>
@@ -36,9 +38,18 @@
 							<th>职工ID</th>
 							<th>姓名</th>
 							<!-- <th>密码</th> -->
-							<th>部门</th>
-							<th>余额</th>
+							<%--<th>部门</th>--%>
+							<%--<th>余额</th>--%>
 						</tr>
+						<%
+							if(staff!=null) {
+						%>
+						<td><%=staff.getStaffId() %></td>
+						<td><%=staff.getStaffName() %></td>
+						<%--<td><%=admin.getBalances() %></td>--%>
+						<%
+							}
+						%>
 					</table>
 				</div>
 </body>

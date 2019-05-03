@@ -9,6 +9,17 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    Cookie[] cookies = request.getCookies();
+    String id="";
+    for(Cookie cookie:cookies) {
+        if(cookie.getName().equals("adminIdCookie")) {
+            id = cookie.getValue();
+        }
+    }
+    String msg = (String)request.getAttribute("msg");
+    if(msg == null) {
+        msg="null";
+    }
 %>
 
 <!DOCTYPE html>
@@ -29,10 +40,11 @@
     </div>
     <!-- 用户名加签到展示 -->
     <div id="user">
-        <span><a href="<%=path%>/jsp/admin/adminMaster.jsp">首页</a></span>
-        <span>用户名：</span>
-        <span></span>
-        <span><a>签到</a></span>
+        <span><a href="<%=path%>/jsp/admin/adminMaster.jsp">首页&nbsp;&nbsp;</a></span>
+        <span>用户名:</span>
+        <span><%=id %></span>
+        <%--<span><a href="<%=path %>/admin/adminSignIn.do">签到</a></span>--%>
+        <%--<span><a href="<%=path %>/jsp/admin/modifyPasswords.jsp">&nbsp;&nbsp;修改密码</a></span>--%>
     </div>
 
 </header>
@@ -50,7 +62,7 @@
             <li><a href="<%=path %>/jsp/admin/adminManager.jsp">管理员信息管理</a></li>
             <li><a href="<%=path %>/jsp/admin/bookManager.jsp">书籍资料信息管理</a></li>
             <li><a href="<%=path %>/jsp/admin/libAdviceManager.jsp">图书馆公告管理</a></li>
-            <li><a href="">退出</a></li>
+            <li><a href="<%=path %>/admin/adminLogout.do">退出</a></li>
         </ul>
     </aside>
     <article class="float_to_right">
@@ -63,4 +75,12 @@
 <footer class="clear_float">
 </footer>
 </body>
+<script type="text/javascript">
+    var messages="null";
+    messages="<%=msg %>";
+    // window.alert(messages);
+    if(messages != "null") {
+        window.alert(messages);
+    }
+</script>
 </html>

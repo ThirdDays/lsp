@@ -2,6 +2,10 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String msg = (String)request.getAttribute("msg");
+	if(msg == null) {
+		msg="null";
+	}
 %>
 
 <!DOCTYPE html>
@@ -68,6 +72,13 @@
 </head>
 <body>
 	<div id="form">
+		<%--<form action="" method="post">--%>
+			<%--<div>--%>
+				<%--<label>ID：</label>--%>
+				<%--<input type="text" name="adminId" placeholder="请输入管理员ID" required="required">--%>
+			<%--</div>--%>
+		<%--</form>--%>
+
 		<form class="form" action="<%=path%>/admin/modifyAdmin.do" method="post">
 			<div class="main">
 				<p>修改管理员信息</p>
@@ -83,14 +94,22 @@
       				<label>密码：</label>
       				<input type="text" name="passwords" placeholder="请输入初始密码" required="required">
       			</div>
-      			<div>
-      				<label>余额：</label>
-      				<input type="text" name="balances" placeholder="请输入初始余额" required="required">
-      			</div>
+      			<%--<div>--%>
+      				<%--<label>余额：</label>--%>
+      				<%--<input type="text" name="balances" placeholder="请输入初始余额" required="required">--%>
+      			<%--</div>--%>
       			<button class="inline_to_block btn center" type="submit">修改</button>
       		</div>
 		</form>
 	</div>
 
 </body>
+<script type="text/javascript">
+	var messages="null";
+	messages="<%=msg %>";
+	// window.alert(messages);
+	if(messages != "null") {
+		window.alert(messages);
+	}
+</script>
 </html>

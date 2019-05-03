@@ -2,6 +2,17 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String msg = (String)request.getAttribute("msg");
+	if(msg == null) {
+		msg="null";
+	}
+	Cookie[] cookies = request.getCookies();
+	String id="";
+	for(Cookie cookie:cookies) {
+		if(cookie.getName().equals("staffIdCookie")) {
+			id = cookie.getValue();
+		}
+	}
 %>
 
 <!DOCTYPE html>
@@ -24,10 +35,11 @@
 		</div>
 		<!-- 用户名加签到展示 -->
 		<div id="user">
-				<span><a href="<%=path %>/jsp/custom_service/custom_service_master.jsp">首页</a></span>
+				<span><a href="<%=path %>/jsp/custom_service/custom_service_master.jsp">首页&nbsp;&nbsp;</a></span>
 				<span>用户名：</span>
-				<span></span>
-				<span><a>签到</a></span>
+				<span><%=id %></span>
+				<span><a href="<%=path%>/staff/staffSignIn.do?staffId=<%=id %>">签到</a></span>
+			<%--<span><a href="<%=path %>/jsp/custom_service/modifyPasswords.jsp">&nbsp;&nbsp;修改密码</a></span>--%>
 		</div>
 	
 	</header>
@@ -44,7 +56,7 @@
 					<li><a href="<%=path %>/jsp/custom_service/bookBorrow_cs.jsp">办理书籍借阅</a></li>
 					<!-- 查看图书馆公告的请求是要传到后台的，这里为了方便测试直接连接到目标页面 -->
 					<li><a href="<%=path %>/libAdvice/queryLibAdvice.do" target="new">查看图书馆公告</a></li>
-					<li><a href="">退出</a></li>
+					<li><a href="<%=path %>/teach/teachLogout.do">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">
@@ -57,4 +69,12 @@
 	<footer class="clear_float">
 	</footer>
 </body>
+<script type="text/javascript">
+	var messages="null";
+	messages="<%=msg %>";
+	// window.alert(messages);
+	if(messages != "null") {
+		window.alert(messages);
+	}
+</script>
 </html>

@@ -36,7 +36,6 @@
     <select id="findBooksByText" parameterType="string" resultType="com.lsp.domain.po.Book">
         select * from book where bookId like "%"#{queryCondition}"%" or bookName like "%"#{queryCondition}"%" or author like "%"#{queryCondition}"%"
         or pubCompany like "%"#{queryCondition}"%" or category like "%"#{queryCondition}"%" or location like "%"#{queryCondition}"%"
-
     </select>
 
     <!--通过书籍类别（分类）来查找书籍-->

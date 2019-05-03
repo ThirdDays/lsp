@@ -37,19 +37,18 @@
 						<tr>
 							<th>管理员ID</th>
 							<th>姓名</th>
-							<!-- <th>密码</th> -->
-							<th>余额</th>
 						</tr>
 						<%
 							if(admin!=null) {
 						%>
 							<td><%=admin.getAdminId() %></td>
 							<td><%=admin.getAdminName() %></td>
-							<td><%=admin.getBalances() %></td>
+							<%--<td><%=admin.getBalances() %></td>--%>
 						<%
 							}
 						%>
 					</table>
 				</div>
 </body>
+
 </html>

@@ -25,9 +25,9 @@
 		<!-- 用户名加签到展示 -->
 		<div id="user">
 			<span><a href="<%=path%>/jsp/admin/adminMaster.jsp">首页</a></span>
-				<span>用户名：</span>
-				<span></span>
-				<span><a>签到</a></span>
+				<%--<span>用户名：</span>--%>
+				<%--<span></span>--%>
+				<%--<span><a>签到</a></span>--%>
 		</div>
 	
 	</header>
@@ -43,7 +43,7 @@
 					<li><a href="modifyTeach.jsp" target="new">修改教师信息</a></li>
 					<li><a href="deleteTeach.jsp" target="new">删除教师信息</a></li>
 					<li><a href="queryTeach.jsp" target="new">查询教师信息</a></li>
-					<li><a href="">退出</a></li>
+					<li><a href="<%=path %>/admin/adminLogout.do">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">

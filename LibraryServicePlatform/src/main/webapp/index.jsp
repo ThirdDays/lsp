@@ -11,11 +11,14 @@
 	<title>Document</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="<%=path %>/css/bootstrap.css" type="text/css" rel="stylesheet" media="screen">
     <style type="text/css">
         *{
 			margin: 0;
 			padding: 0;
+		}
+		body{
+			background-color: #69c0ff;
 		}
 		.red{
 			background-color: red;
@@ -32,7 +35,7 @@
 			width: 300px;
 			height: 300px;
 			margin: 100px auto;
-			border: solid 2px black;
+			border: solid 2px #69c0ff;
 		}
 		.main{
 			width: 280px;
@@ -98,7 +101,7 @@
       				<label>身份：</label>
 					<select name="identifier" required="required">
 						<option value="admin">管理员</option>
-						<option value=staff>普通职工</option>
+						<%--<option value=staff>普通职工</option>--%>
 						<option value="customService">前台客服</option>
 						<option value="teachr">教师</option>
 						<option value="stu">学生</option>

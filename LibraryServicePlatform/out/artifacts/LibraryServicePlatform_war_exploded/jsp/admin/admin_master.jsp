@@ -2,6 +2,10 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+//	String msg = (String)request.getAttribute("msg");
+//	if(msg == null) {
+//		msg="null";
+//	}
 %>
 
 <!DOCTYPE html>
@@ -55,4 +59,5 @@
 	<footer class="clear_float">
 	</footer>
 </body>
+
 </html>

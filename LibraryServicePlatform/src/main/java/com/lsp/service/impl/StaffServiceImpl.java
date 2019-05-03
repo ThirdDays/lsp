@@ -105,7 +105,7 @@ public class StaffServiceImpl implements com.lsp.service.interfaces.StaffService
             }
             return null;
         }
-        return "职工不存在！";
+        return null;
     }
 
     //判断职工是否存在

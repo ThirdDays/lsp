@@ -25,9 +25,9 @@
 		<!-- 用户名加签到展示 -->
 		<div id="user">
 			<span><a href="<%=path%>/jsp/admin/adminMaster.jsp">首页</a></span>
-				<span>用户名：</span>
-				<span></span>
-				<span><a>签到</a></span>
+				<%--<span>用户名：</span>--%>
+				<%--<span></span>--%>
+				<%--<span><a>签到</a></span>--%>
 		</div>
 	
 	</header>
@@ -45,7 +45,7 @@
 					<!-- 没有修改图书馆公告的功能 -->
 					<!-- <li><a href="modifyLibAdvice.html" target="new">修改图书馆公告</a></li> -->
 					<li><a href="<%=path %>/libAdvice/queryLibAdvice.do" target="new">查看图书馆公告</a></li>
-					<li><a href="">退出</a></li>
+					<li><a href="<%=path %>/admin/adminLogout.do">退出</a></li>
 				</ul>
 		</aside>
 		<article class="float_to_right">

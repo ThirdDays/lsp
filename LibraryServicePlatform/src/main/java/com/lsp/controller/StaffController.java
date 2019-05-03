@@ -33,10 +33,10 @@ public class StaffController {
         int result=staffService.insertStaff(staff);
         boolean bool = userService.addUser(staff.getStaffId(),staff.getStaffName());
         if(result>0 && bool == true) {
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             return "jsp/admin/addStaff.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/addStaff.jsp";
     }
     @RequestMapping("/deleteStaff.do")
@@ -45,10 +45,10 @@ public class StaffController {
         int result=staffService.deleteStaff(staffId);
         boolean bool = userService.deleteUser(staffId);
         if(result > 0 && bool == true) {
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             return "jsp/admin/deleteStaff.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作失败！");
         return "jsp/admin/deleteStaff.jsp";
     }
     @RequestMapping("/modifyStaff.do")
@@ -63,18 +63,19 @@ public class StaffController {
         en.setObject(user);
         boolean bool = userService.modifyUser(en);
         if(result>0 && bool == true) {
-            request.setAttribute("msg",true);
+            request.setAttribute("msg","操作成功！");
             return "jsp/admin/modifyStaff.jsp";
         }
-        request.setAttribute("msg",false);
+        request.setAttribute("msg","操作成功");
         return "jsp/admin/modifyStaff.jsp";
     }
 
 
     @RequestMapping("/queryStaffById.do")
-    public String queryStaffById(String staffId) {
+    public String queryStaffById(String staffId,HttpServletRequest request) {
         Staff staff=staffService.findStaffById(staffId);
-        return null;
+        request.setAttribute("staff",staff);
+        return "jsp/admin/queryStaff.jsp";
     }
     @RequestMapping("/queryStaffByName.do")
     public String queryStaffByName(String staffName) {
@@ -88,26 +89,18 @@ public class StaffController {
         String passwords=httpServletRequest.getParameter("password");
         boolean bool=staffService.login(staffId,passwords);
         if(bool) {
+            httpSession.setAttribute("staffIdSession",staffId);
+            httpSession.setAttribute("passwordsSession",passwords);
+
+            Cookie staffIdCookie=new Cookie("staffIdCookie",staffId);
+            Cookie passwordsCookie=new Cookie("passwordsCookie",passwords);
+            httpServletResponse.addCookie(staffIdCookie);
+            httpServletResponse.addCookie(passwordsCookie);
+            httpServletRequest.setAttribute("id",staffId);
             return "jsp/custom_service/custom_service_master.jsp";
         }
+        httpServletRequest.setAttribute("msg","用户名或密码错误！");
         return "index.jsp";                                 //登录失败返回首页
-//        ModelAndView modelAndView=new ModelAndView();
-//        if(bool) {
-//            httpSession.setAttribute("staIdSession",staffId);
-//            httpSession.setAttribute("passwordsSession",passwords);
-//
-//            Cookie staIdCookie=new Cookie("staIdCookie",staffId);
-//            Cookie passwordsCookie=new Cookie("passwordsCookie",passwords);
-//            httpServletResponse.addCookie(staIdCookie);
-//            httpServletResponse.addCookie(passwordsCookie);
-//
-//            modelAndView.addObject("msg","登录成功！");
-//            modelAndView.setViewName("");       //以后在写
-//            return modelAndView;
-//        }
-//        modelAndView.addObject("msg","工号或密码错误！");
-//        modelAndView.setViewName("/jsp/custom_service/custom_service_master.jsp");           //以后在写
-//        return modelAndView;
     }
 
     //本方法以后在具体补充，登出日志暂时不考虑
@@ -118,30 +111,32 @@ public class StaffController {
             cookie.setMaxAge(0);            //消除cookie
             httpServletResponse.addCookie(cookie);
         }
-        httpSession.removeAttribute("staIdSession");      //消除session域中的内容
+        httpSession.removeAttribute("staffIdSession");      //消除session域中的内容
         httpSession.removeAttribute("passwordsSession");
-        return null;
+        return "index.jsp";
     }
 
     @RequestMapping("/modifyStaffPasswords.do")
-    public ModelAndView modifyStaffPasswords(String staId,String newPasswords) {       //修改密码
-        boolean result=staffService.modifyPasswords(staId,newPasswords);
-        ModelAndView modelAndView=new ModelAndView();
+    public String modifyStaffPasswords(String staffId,String newPasswords,HttpServletRequest request) {       //修改密码
+        boolean result=staffService.modifyPasswords(staffId,newPasswords);
         if(result==true) {  //修改成功
-            modelAndView.addObject("msg","修改密码成功！");
-            modelAndView.setViewName("");
-            return modelAndView;
+            request.setAttribute("msg","修改密码成功！");
+            return "jsp/custom_service/custom_service_master.jsp";
         }
-        modelAndView.addObject("msg","修改密码失败！");
-        modelAndView.setViewName("");
-        return modelAndView;
+        request.setAttribute("msg","修改密码失败！");
+        return "jsp/custom_service/modifyPasswords.jsp";
     }
 
     //签到
     @RequestMapping("/staffSignIn.do")
-    public String staffSignIn(String staffId) {
+    public String staffSignIn(String staffId,HttpServletRequest request) {
         String result = staffService.sign(staffId);            //执行签到
-        return null;
+        if(result == null) {
+            request.setAttribute("msg","签到失败！");
+            return "jsp/custom_service/custom_service_master.jsp";
+        }
+        request.setAttribute("msg","签到成功！");
+        return "jsp/custom_service/custom_service_master.jsp";
     }
 
 }
